@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arch Build Co.</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; color: #0f172a; background: #f8fafc; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    .container { width: min(1200px, 92%); margin: auto; }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+    .logo { font-size: 1.5rem; font-weight: 700; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a:hover { color: #475569; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; color: white; padding: 100px 20px 40px;
+      background: linear-gradient(135deg, #0f172a, #334155);
+      animation: gradientMove 8s ease infinite;
+      background-size: 200% 200%;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 20px; }
+    .hero p { max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem; }
+    .btn {
+      display: inline-block; padding: 14px 28px; border-radius: 14px;
+      background: white; color: #0f172a; font-weight: bold;
+      transition: transform .3s;
+    }
+    .btn:hover { transform: scale(1.05); }
+
+    /* Services */
+    .services { padding: 80px 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card {
+      background: white; padding: 30px; border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06); transition: .3s;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 10px 24px rgba(0,0,0,0.1); }
+    .card h3 { margin-bottom: 12px; }
+
+    /* Vision */
+    .vision { background: #0f172a; color: white; padding: 80px 20px; text-align: center; }
+    .vision p { max-width: 800px; margin: 20px auto 0; color: #cbd5e1; }
+
+    /* Footer */
+    footer { background: #e2e8f0; padding: 30px 0; }
+    .footer-wrap { display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+    .footer-links { display: flex; gap: 20px; color: #475569; }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .nav { flex-direction: column; gap: 12px; }
+      .nav-links { flex-wrap: wrap; justify-content: center; gap: 14px; }
+      .grid { grid-template-columns: 1fr; }
+      .footer-wrap { flex-direction: column; text-align: center; }
+      .hero p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">ARCH BUILD CO.</div>
+      <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="#services">Services</a>
+        <a href="#vision">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>ARCH BUILD CO.</h1>
+      <p>Designing landmarks. Building futures. Premium architecture and construction solutions for visionary clients.</p>
+      <a href="#services" class="btn">Explore Projects</a>
+    </div>
+  </section>
+
+  <section class="services container" id="services">
+    <div class="grid">
+      <div class="card">
+        <h3>Architecture</h3>
+        <p>Innovative and sustainable architectural design.</p>
+      </div>
+      <div class="card">
+        <h3>Construction</h3>
+        <p>End-to-end premium construction management.</p>
+      </div>
+      <div class="card">
+        <h3>Consulting</h3>
+        <p>Strategic planning and engineering advisory.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="vision" id="vision">
+    <div class="container">
+      <h2>Our Vision</h2>
+      <p>At Arch Build Co., we blend architectural artistry with engineering excellence to create spaces that inspire and endure.</p>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container footer-wrap">
+      <div>© 2026 Arch Build Co. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
