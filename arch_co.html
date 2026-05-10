@@ -823,9 +823,14 @@ footer{background:#060810;padding:3.5rem 5% 2rem;border-top:1px solid rgba(200,1
       <div class="contact-info-item"><div class="ci-icon">📍</div><div><div class="ci-label">Studio</div><div class="ci-value">One Design Plaza, New York, NY 10013</div></div></div>
       <div class="contact-info-item"><div class="ci-icon">⏰</div><div><div class="ci-label">Hours</div><div class="ci-value">Mon – Fri, 9 AM – 6 PM EST</div></div></div>
     </div>
-    <form name="enquiry" method="POST" data-netlify="true" class="reveal reveal-right d2">
+    <form name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="reveal reveal-right d2">
   <!-- Hidden input required for Netlify -->
   <input type="hidden" name="form-name" value="enquiry" />
+
+  <!-- Honeypot field (hidden from users, catches bots) -->
+  <p style="display:none;">
+    <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+  </p>
 
   <div class="form-row">
     <div class="form-group">
@@ -863,6 +868,7 @@ footer{background:#060810;padding:3.5rem 5% 2rem;border-top:1px solid rgba(200,1
 
   <button type="submit" class="submit-btn">Send Enquiry →</button>
 </form>
+
 
   </div>
 </section>
