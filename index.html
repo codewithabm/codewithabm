@@ -1202,15 +1202,16 @@ footer::before{
         </div>
       </div>
     </div>
-    <form name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="reveal reveal-right reveal-delay-3">
+    <form name="projectRequest" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="reveal reveal-right reveal-delay-3">
   <!-- Hidden input required for Netlify -->
-  <input type="hidden" name="form-name" value="enquiry" />
+  <input type="hidden" name="form-name" value="projectRequest" />
 
   <!-- Honeypot field (hidden, catches bots) -->
   <p style="display:none;">
     <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
   </p>
 
+  <!-- Hidden subject line -->
   <input type="hidden" name="_subject" value="New Project Enquiry — Code with ABM" />
 
   <div class="form-row">
@@ -1248,6 +1249,7 @@ footer::before{
 
   <button type="submit" class="submit-btn"><span>Send Message →</span></button>
 </form>
+
 
   </div>
 </section>
