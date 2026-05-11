@@ -1,103 +1,940 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduTrack Institute</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{font-family:Arial,sans-serif;line-height:1.6;color:#1e293b;background:#f8fafc}
-    a{text-decoration:none;color:inherit}
-    .container{width:min(1200px,92%);margin:auto}
-    header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,.08)}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
-    .logo{font-size:1.6rem;font-weight:700;color:#1d4ed8}
-    .nav-links{display:flex;gap:24px}
-    .nav-links a:hover{color:#1d4ed8}
-    .hero{min-height:85vh;display:flex;align-items:center;text-align:center;background:linear-gradient(135deg,#dbeafe,#eff6ff,#e0f2fe);padding:40px 20px}
-    .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);margin-bottom:16px;color:#0f172a}
-    .hero p{max-width:720px;margin:0 auto 28px;color:#475569}
-    .btn{display:inline-block;padding:14px 28px;background:#1d4ed8;color:#fff;border-radius:999px;transition:.3s}
-    .btn:hover{transform:translateY(-3px)}
-    section{padding:80px 0}
-    h2{text-align:center;font-size:2rem;margin-bottom:40px;color:#0f172a}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
-    .card{background:#fff;padding:24px;border-radius:18px;box-shadow:0 4px 14px rgba(0,0,0,.06);transition:.3s}
-    .card:hover{transform:translateY(-6px)}
-    .card h3{margin-bottom:10px;color:#1d4ed8}
-    .faculty img{width:80px;height:80px;border-radius:50%;display:block;margin:0 auto 12px;background:#cbd5e1}
-    .faculty{text-align:center}
-    .contact{background:#e2e8f0;border-radius:20px;padding:40px}
-    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    input,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;margin-bottom:12px}
-    button{padding:12px 22px;background:#1d4ed8;color:#fff;border:none;border-radius:10px;cursor:pointer}
-    footer{text-align:center;padding:30px;color:#64748b;border-top:1px solid #e2e8f0}
-    @media(max-width:768px){.nav{flex-direction:column;gap:12px}.nav-links{flex-wrap:wrap;justify-content:center}.contact-grid{grid-template-columns:1fr}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduTrack Institute — Empowering Minds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0a1628;
+  --blue: #1a3a6e;
+  --accent: #e8a020;
+  --gold: #f5c842;
+  --light: #f0f4ff;
+  --white: #ffffff;
+  --gray: #8892a4;
+  --text: #1c2540;
+  --card-bg: #ffffff;
+  --border: rgba(26,58,110,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#f5f7ff;color:var(--text);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block}
+
+/* ── NAV ── */
+header{position:fixed;top:0;width:100%;z-index:1000;transition:all .4s}
+header.scrolled{background:rgba(10,22,40,.96);backdrop-filter:blur(16px);box-shadow:0 2px 30px rgba(0,0,0,.3)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;max-width:1400px;margin:auto}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:38px;height:38px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;color:#fff;font-size:1.2rem}
+.logo-text{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:.5px}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{color:rgba(255,255,255,.8);font-size:.9rem;font-weight:500;letter-spacing:.5px;text-transform:uppercase;transition:.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:.3s}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--accent);color:#fff!important;padding:10px 24px;border-radius:50px;font-weight:600!important;transition:all .3s!important}
+.nav-cta:hover{background:var(--gold);transform:translateY(-2px);box-shadow:0 8px 20px rgba(232,160,32,.4)}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+
+/* ── HERO SLIDER ── */
+.hero{position:relative;height:100vh;min-height:600px;overflow:hidden}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;display:flex;align-items:center}
+.slide.active{opacity:1;z-index:2}
+.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 8s ease}
+.slide.active .slide-bg{transform:scale(1.06)}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(120deg,rgba(10,22,40,.88) 40%,rgba(10,22,40,.45) 100%)}
+.slide-content{position:relative;z-index:3;max-width:1400px;margin:auto;padding:0 5%;width:100%}
+.slide-tag{display:inline-block;background:var(--accent);color:#fff;font-size:.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:18px;opacity:0;transform:translateY(20px);transition:all .8s .3s}
+.slide.active .slide-tag{opacity:1;transform:translateY(0)}
+.slide h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,5rem);color:#fff;line-height:1.1;margin-bottom:20px;opacity:0;transform:translateY(30px);transition:all .8s .5s}
+.slide.active h1{opacity:1;transform:translateY(0)}
+.slide p{color:rgba(255,255,255,.8);font-size:clamp(.95rem,2vw,1.15rem);max-width:580px;line-height:1.8;margin-bottom:36px;opacity:0;transform:translateY(20px);transition:all .8s .7s}
+.slide.active p{opacity:1;transform:translateY(0)}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;transform:translateY(20px);transition:all .8s .9s}
+.slide.active .hero-btns{opacity:1;transform:translateY(0)}
+.btn-primary{background:var(--accent);color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;font-size:.95rem;transition:all .3s;border:2px solid var(--accent)}
+.btn-primary:hover{background:var(--gold);transform:translateY(-3px);box-shadow:0 12px 30px rgba(232,160,32,.45)}
+.btn-outline{background:transparent;color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;font-size:.95rem;border:2px solid rgba(255,255,255,.5);transition:all .3s}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1);transform:translateY(-3px)}
+
+/* Slider controls */
+.slider-dots{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:10px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:.3s}
+.dot.active{background:var(--accent);width:28px;border-radius:50px}
+.slider-arrows{position:absolute;bottom:50%;transform:translateY(50%);width:100%;z-index:10;display:flex;justify-content:space-between;padding:0 20px;pointer-events:none}
+.arrow{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:1.2rem;cursor:pointer;pointer-events:all;transition:.3s;display:flex;align-items:center;justify-content:center}
+.arrow:hover{background:var(--accent);border-color:var(--accent)}
+.scroll-hint{position:absolute;bottom:80px;right:5%;z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.6);font-size:.75rem;letter-spacing:1px;text-transform:uppercase;animation:bounce 2s infinite}
+.scroll-hint span{width:1px;height:60px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.5))}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* ── STATS BAR ── */
+.stats-bar{background:var(--navy);padding:32px 5%}
+.stats-inner{max-width:1400px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat{text-align:center;border-right:1px solid rgba(255,255,255,.1);padding:8px 0}
+.stat:last-child{border-right:none}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--accent)}
+.stat-label{color:rgba(255,255,255,.6);font-size:.85rem;margin-top:4px;letter-spacing:.5px}
+
+/* ── SECTION BASE ── */
+section{padding:90px 5%}
+.section-inner{max-width:1400px;margin:auto}
+.section-label{display:inline-block;color:var(--accent);font-size:.78rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--navy);line-height:1.2;margin-bottom:16px}
+.section-sub{color:var(--gray);font-size:1rem;line-height:1.8;max-width:600px;margin-bottom:50px}
+.section-head{text-align:center}
+.section-head .section-sub{margin:0 auto 50px}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-img{position:relative;border-radius:20px;overflow:hidden}
+.about-img img{width:100%;height:480px;object-fit:cover;border-radius:20px}
+.about-badge{position:absolute;bottom:30px;right:-20px;background:#fff;border-radius:16px;padding:20px 24px;box-shadow:0 20px 60px rgba(0,0,0,.15);text-align:center}
+.about-badge .num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:var(--navy)}
+.about-badge .lbl{color:var(--gray);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.about-img::before{content:'';position:absolute;inset:-8px;border:3px dashed var(--accent);border-radius:24px;opacity:.4;z-index:-1}
+.feature-list{list-style:none;display:grid;gap:14px;margin:28px 0}
+.feature-list li{display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--light);border-radius:12px;transition:.3s}
+.feature-list li:hover{background:#e8eeff;transform:translateX(6px)}
+.feat-icon{width:36px;height:36px;background:var(--accent);border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem}
+.feat-text h4{font-weight:600;color:var(--navy);font-size:.95rem}
+.feat-text p{color:var(--gray);font-size:.85rem;margin-top:2px}
+
+/* ── COURSES ── */
+.courses-bg{background:linear-gradient(180deg,#f5f7ff 0%,#eef1ff 100%)}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.course-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:all .4s;border:1px solid var(--border)}
+.course-card:hover{transform:translateY(-10px);box-shadow:0 20px 50px rgba(26,58,110,.15)}
+.course-thumb{height:200px;position:relative;overflow:hidden}
+.course-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.course-card:hover .course-thumb img{transform:scale(1.08)}
+.course-tag{position:absolute;top:14px;left:14px;background:var(--accent);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:50px}
+.course-body{padding:24px}
+.course-body h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--navy);margin-bottom:8px}
+.course-body p{color:var(--gray);font-size:.88rem;line-height:1.7;margin-bottom:18px}
+.course-meta{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border)}
+.meta-item{display:flex;align-items:center;gap:5px;color:var(--gray);font-size:.8rem}
+.meta-item svg{width:14px;height:14px}
+.course-link{color:var(--blue);font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:4px;transition:.3s}
+.course-link:hover{color:var(--accent);gap:8px}
+
+/* ── WHY US ── */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.why-card{padding:32px;border-radius:20px;background:#fff;border:1px solid var(--border);transition:all .4s;position:relative;overflow:hidden}
+.why-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--navy),var(--blue));opacity:0;transition:.4s}
+.why-card:hover::before{opacity:1}
+.why-card:hover *{color:#fff!important;position:relative;z-index:1}
+.why-icon{width:56px;height:56px;background:var(--light);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.5rem;transition:.4s}
+.why-card:hover .why-icon{background:rgba(255,255,255,.15)}
+.why-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:10px;transition:.3s}
+.why-card p{color:var(--gray);font-size:.88rem;line-height:1.7;transition:.3s}
+
+/* ── FACULTY ── */
+.faculty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.faculty-card{background:#fff;border-radius:20px;overflow:hidden;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:all .4s;border:1px solid var(--border)}
+.faculty-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(26,58,110,.15)}
+.faculty-img{height:220px;overflow:hidden;position:relative}
+.faculty-img img{width:100%;height:100%;object-fit:cover;transition:.6s}
+.faculty-card:hover .faculty-img img{transform:scale(1.05)}
+.faculty-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,22,40,.7),transparent);opacity:0;transition:.4s;display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;gap:12px}
+.faculty-card:hover .faculty-overlay{opacity:1}
+.social-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.4);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;cursor:pointer;transition:.3s}
+.social-btn:hover{background:var(--accent);border-color:var(--accent)}
+.faculty-info{padding:20px}
+.faculty-info h3{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);margin-bottom:4px}
+.faculty-info .role{color:var(--accent);font-size:.82rem;font-weight:600;letter-spacing:.5px;margin-bottom:8px}
+.faculty-info .dept{color:var(--gray);font-size:.8rem}
+
+/* ── TESTIMONIALS ── */
+.testimonials-bg{background:var(--navy)}
+.test-section-title{color:#fff}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.test-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:28px;transition:.3s;backdrop-filter:blur(4px)}
+.test-card:hover{background:rgba(255,255,255,.12);transform:translateY(-6px)}
+.stars{color:var(--accent);font-size:1rem;margin-bottom:14px;letter-spacing:2px}
+.test-text{color:rgba(255,255,255,.8);font-size:.9rem;line-height:1.8;margin-bottom:20px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:12px}
+.test-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
+.test-name{color:#fff;font-weight:600;font-size:.9rem}
+.test-course{color:rgba(255,255,255,.5);font-size:.78rem}
+
+/* ── GALLERY ── */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,200px);gap:12px;border-radius:20px;overflow:hidden}
+.gallery-item{overflow:hidden;cursor:pointer;position:relative}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:.6s}
+.gallery-item:hover img{transform:scale(1.1)}
+.gallery-item::after{content:'View';position:absolute;inset:0;background:rgba(10,22,40,.6);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.9rem;letter-spacing:1px;opacity:0;transition:.3s}
+.gallery-item:hover::after{opacity:1}
+.gallery-item.span2{grid-column:span 2;grid-row:span 2}
+
+/* ── ADMISSIONS ── */
+.admission-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:20px;align-items:flex-start;position:relative;padding-bottom:32px}
+.step:last-child{padding-bottom:0}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:48px;width:2px;height:calc(100% - 16px);background:linear-gradient(to bottom,var(--accent),transparent)}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:.9rem;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.step-body h4{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);margin-bottom:6px}
+.step-body p{color:var(--gray);font-size:.88rem;line-height:1.7}
+.admission-form{background:var(--navy);border-radius:24px;padding:40px}
+.admission-form h3{font-family:'Playfair Display',serif;color:#fff;font-size:1.5rem;margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;color:rgba(255,255,255,.7);font-size:.8rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:.9rem;font-family:'DM Sans',sans-serif;transition:.3s}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.35)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,.12)}
+.form-group select option{background:var(--navy);color:#fff}
+.submit-btn{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:50px;font-size:.95rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .3s;margin-top:6px}
+.submit-btn:hover{background:var(--gold);transform:translateY(-3px);box-shadow:0 12px 30px rgba(232,160,32,.4)}
+
+/* ── CONTACT ── */
+.contact-bg{background:linear-gradient(180deg,#eef1ff,#f5f7ff)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:50px;align-items:start}
+.contact-info h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);margin-bottom:16px}
+.contact-info p{color:var(--gray);line-height:1.8;margin-bottom:28px}
+.contact-items{display:flex;flex-direction:column;gap:16px}
+.contact-item{display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff;border-radius:14px;border:1px solid var(--border);transition:.3s}
+.contact-item:hover{border-color:var(--accent);transform:translateX(6px)}
+.c-icon{width:44px;height:44px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.c-label{font-size:.75rem;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.c-value{font-size:.9rem;color:var(--text);font-weight:500}
+.contact-form-wrap{background:#fff;border-radius:24px;padding:40px;box-shadow:0 8px 40px rgba(26,58,110,.1);border:1px solid var(--border)}
+.contact-form-wrap h3{font-family:'Playfair Display',serif;color:var(--navy);font-size:1.4rem;margin-bottom:24px}
+.cf-group{margin-bottom:16px}
+.cf-group label{display:block;font-size:.8rem;font-weight:600;color:var(--navy);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.cf-group input,.cf-group textarea,.cf-group select{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--text);transition:.3s;background:#f9faff}
+.cf-group input:focus,.cf-group textarea:focus,.cf-group select:focus{outline:none;border-color:var(--accent);background:#fff}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cf-submit{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:50px;font-size:.95rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .3s}
+.cf-submit:hover{background:var(--accent);transform:translateY(-3px);box-shadow:0 12px 30px rgba(232,160,32,.4)}
+
+/* ── MAP / CAMPUS ── */
+.campus-map{border-radius:20px;overflow:hidden;height:360px;background:var(--light);display:flex;align-items:center;justify-content:center;color:var(--gray);font-size:.9rem;border:2px dashed var(--border);margin-top:50px;position:relative}
+.campus-map img{width:100%;height:100%;object-fit:cover}
+
+/* ── NEWSLETTER ── */
+.newsletter{background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);padding:70px 5%;text-align:center}
+.newsletter-inner{max-width:600px;margin:auto}
+.newsletter h2{font-family:'Playfair Display',serif;color:#fff;font-size:2rem;margin-bottom:12px}
+.newsletter p{color:rgba(255,255,255,.7);margin-bottom:28px}
+.nl-form{display:flex;gap:10px;max-width:480px;margin:auto}
+.nl-form input{flex:1;padding:14px 20px;border:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.9rem;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.nl-form input::placeholder{color:rgba(255,255,255,.5)}
+.nl-form input:focus{outline:none;border-color:var(--accent)}
+.nl-btn{padding:14px 28px;background:var(--accent);color:#fff;border:none;border-radius:50px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;transition:.3s}
+.nl-btn:hover{background:var(--gold)}
+
+/* ── FOOTER ── */
+footer{background:#050e1e;padding:60px 5% 30px}
+.footer-inner{max-width:1400px;margin:auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand .logo-text{color:#fff;font-size:1.4rem;margin-bottom:12px;display:block}
+.footer-brand p{color:rgba(255,255,255,.5);font-size:.88rem;line-height:1.8;margin-bottom:20px}
+.footer-social{display:flex;gap:10px}
+.fsoc{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:.85rem;transition:.3s;cursor:pointer}
+.fsoc:hover{background:var(--accent);color:#fff}
+.footer-col h4{color:#fff;font-size:.9rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col li a{color:rgba(255,255,255,.5);font-size:.88rem;transition:.3s;display:flex;align-items:center;gap:6px}
+.footer-col li a::before{content:'→';opacity:0;margin-left:-12px;transition:.3s}
+.footer-col li a:hover{color:var(--accent);padding-left:12px}
+.footer-col li a:hover::before{opacity:1}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{color:rgba(255,255,255,.4);font-size:.82rem}
+.footer-bottom a{color:rgba(255,255,255,.4);font-size:.82rem;transition:.3s}
+.footer-bottom a:hover{color:var(--accent)}
+
+/* ── ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:all .8s cubic-bezier(0.16,1,0.3,1)}
+.reveal-left.visible{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(40px);transition:all .8s cubic-bezier(0.16,1,0.3,1)}
+.reveal-right.visible{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ── COUNT-UP ── */
+@keyframes countPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .about-grid,.admission-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:30px}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,180px)}
+  .gallery-item.span2{grid-column:span 2;grid-row:span 1}
+}
+@media(max-width:640px){
+  .nav-links{display:none;position:fixed;inset:0;background:var(--navy);flex-direction:column;align-items:center;justify-content:center;gap:28px;z-index:999}
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:1.2rem}
+  .hamburger{display:flex;z-index:1000}
+  .stats-inner{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr}
+  .form-row,.cf-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .nl-form{flex-direction:column}
+  .gallery-grid{grid-template-columns:1fr;grid-template-rows:auto;height:auto}
+  .gallery-item.span2{grid-column:span 1;grid-row:span 1}
+  .gallery-item{height:200px}
+}
+</style>
 </head>
 <body>
-<header>
-  <div class="container nav">
-    <div class="logo">EduTrack Institute</div>
-    <nav class="nav-links">
+
+<!-- HEADER -->
+<header id="mainHeader">
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-icon">E</div>
+      <span class="logo-text">EduTrack</span>
+    </div>
+    <nav class="nav-links" id="navLinks">
       <a href="#home">Home</a>
+      <a href="#about">About</a>
       <a href="#courses">Courses</a>
       <a href="#faculty">Faculty</a>
+      <a href="#admissions">Admissions</a>
       <a href="#contact">Contact</a>
+      <a href="#admissions" class="nav-cta">Apply Now</a>
     </nav>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </header>
 
+<!-- HERO SLIDER -->
 <section class="hero" id="home">
-  <div class="container">
-    <h1>Empowering Minds, Building Futures</h1>
-    <p>EduTrack Institute offers industry-focused education with expert faculty, practical learning, and career-ready programs designed for tomorrow’s professionals.</p>
-    <a href="#courses" class="btn">Explore Courses</a>
-  </div>
-</section>
-
-<section id="courses" class="container">
-  <h2>Course Listings</h2>
-  <div class="grid">
-    <div class="card"><h3>Computer Science</h3><p>Programming, algorithms, AI, and software engineering foundations.</p></div>
-    <div class="card"><h3>Data Science</h3><p>Statistics, machine learning, data visualization, and analytics.</p></div>
-    <div class="card"><h3>Business Management</h3><p>Leadership, finance, marketing, and entrepreneurship skills.</p></div>
-    <div class="card"><h3>Graphic Design</h3><p>UI/UX, branding, digital illustration, and creative tools.</p></div>
-  </div>
-</section>
-
-<section id="faculty" class="container">
-  <h2>Faculty Profiles</h2>
-  <div class="grid">
-    <div class="card faculty"><img alt="Faculty"><h3>Dr. Sarah Khan</h3><p>Head of Computer Science</p></div>
-    <div class="card faculty"><img alt="Faculty"><h3>Prof. Ahmed Raza</h3><p>Lead Data Science Instructor</p></div>
-    <div class="card faculty"><img alt="Faculty"><h3>Ms. Nadia Ali</h3><p>Business Studies Mentor</p></div>
-  </div>
-</section>
-
-<section id="contact" class="container">
-  <h2>Contact Us</h2>
-  <div class="contact">
-    <div class="contact-grid">
-      <div>
-        <h3>Get in Touch</h3>
-        <p>Email: admissions@edutrack.edu</p>
-        <p>Phone: +92 300 1234567</p>
-        <p>Address: Main Campus, Lahore</p>
+  <!-- Slide 1: Computer Science -->
+  <div class="slide active" id="slide-0">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&q=80')"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Computer Science &amp; AI</div>
+      <h1>Build the Software<br>of Tomorrow</h1>
+      <p>Master programming, artificial intelligence, and software engineering through hands-on projects and industry mentorship.</p>
+      <div class="hero-btns">
+        <a href="#courses" class="btn-primary">Explore Programs</a>
+        <a href="#admissions" class="btn-outline">Apply Now →</a>
       </div>
-      <form>
-        <input type="text" placeholder="Your Name">
-        <input type="email" placeholder="Your Email">
-        <textarea rows="4" placeholder="Your Message"></textarea>
-        <button type="button">Send Message</button>
-      </form>
+    </div>
+  </div>
+  <!-- Slide 2: Data Science -->
+  <div class="slide" id="slide-1">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80')"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Data Science &amp; Analytics</div>
+      <h1>Turn Data Into<br>Powerful Insights</h1>
+      <p>Dive into machine learning, big data, and visualization to drive real-world decisions across every industry.</p>
+      <div class="hero-btns">
+        <a href="#courses" class="btn-primary">Explore Programs</a>
+        <a href="#admissions" class="btn-outline">Apply Now →</a>
+      </div>
+    </div>
+  </div>
+  <!-- Slide 3: Business -->
+  <div class="slide" id="slide-2">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80')"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Business &amp; Leadership</div>
+      <h1>Lead with Vision,<br>Grow with Purpose</h1>
+      <p>Learn entrepreneurship, strategic finance, and global leadership from executives who've shaped the industry.</p>
+      <div class="hero-btns">
+        <a href="#courses" class="btn-primary">Explore Programs</a>
+        <a href="#admissions" class="btn-outline">Apply Now →</a>
+      </div>
+    </div>
+  </div>
+  <!-- Slide 4: Design -->
+  <div class="slide" id="slide-3">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1600&q=80')"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Graphic Design &amp; UX</div>
+      <h1>Design Experiences<br>People Love</h1>
+      <p>From UI/UX to brand identity, learn the creative and technical skills that top design studios demand.</p>
+      <div class="hero-btns">
+        <a href="#courses" class="btn-primary">Explore Programs</a>
+        <a href="#admissions" class="btn-outline">Apply Now →</a>
+      </div>
+    </div>
+  </div>
+  <!-- Controls -->
+  <div class="slider-arrows">
+    <button class="arrow" onclick="changeSlide(-1)">&#8592;</button>
+    <button class="arrow" onclick="changeSlide(1)">&#8594;</button>
+  </div>
+  <div class="slider-dots">
+    <div class="dot active" onclick="goToSlide(0)"></div>
+    <div class="dot" onclick="goToSlide(1)"></div>
+    <div class="dot" onclick="goToSlide(2)"></div>
+    <div class="dot" onclick="goToSlide(3)"></div>
+  </div>
+  <div class="scroll-hint">Scroll<span></span></div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat reveal">
+      <div class="stat-num" data-target="15000">0</div>
+      <div class="stat-label">Students Enrolled</div>
+    </div>
+    <div class="stat reveal d1">
+      <div class="stat-num" data-target="95">0</div>
+      <div class="stat-label">Employment Rate %</div>
+    </div>
+    <div class="stat reveal d2">
+      <div class="stat-num" data-target="120">0</div>
+      <div class="stat-label">Industry Partners</div>
+    </div>
+    <div class="stat reveal d3">
+      <div class="stat-num" data-target="28">0</div>
+      <div class="stat-label">Years of Excellence</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img reveal-left">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80" alt="EduTrack Campus">
+        <div class="about-badge">
+          <div class="num">28+</div>
+          <div class="lbl">Years of Excellence</div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <span class="section-label">About EduTrack</span>
+        <h2 class="section-title">Shaping Leaders of the Digital Age</h2>
+        <p style="color:var(--gray);line-height:1.8;margin-bottom:8px">Founded in 1996, EduTrack Institute has been at the forefront of professional education in Pakistan. We bridge the gap between academic knowledge and industry demand.</p>
+        <ul class="feature-list">
+          <li>
+            <div class="feat-icon">🎯</div>
+            <div class="feat-text"><h4>Industry-Aligned Curriculum</h4><p>Courses designed with input from 120+ industry partners ensuring job-ready graduates.</p></div>
+          </li>
+          <li>
+            <div class="feat-icon">🏆</div>
+            <div class="feat-text"><h4>Award-Winning Faculty</h4><p>Learn from PhD scholars and seasoned practitioners with decades of field experience.</p></div>
+          </li>
+          <li>
+            <div class="feat-icon">🌐</div>
+            <div class="feat-text"><h4>Global Accreditation</h4><p>Internationally recognized degrees that open doors across 60+ countries worldwide.</p></div>
+          </li>
+        </ul>
+        <a href="#admissions" class="btn-primary" style="margin-top:8px">Start Your Journey →</a>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- COURSES -->
+<section id="courses" class="courses-bg">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-label">What We Offer</span>
+      <h2 class="section-title">Academic Programs</h2>
+      <p class="section-sub">Choose from our carefully designed programs built to launch careers in the world's fastest-growing sectors.</p>
+    </div>
+    <div class="courses-grid">
+      <div class="course-card reveal d1">
+        <div class="course-thumb">
+          <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=600&q=80" alt="CS">
+          <span class="course-tag">4 Years</span>
+        </div>
+        <div class="course-body">
+          <h3>Computer Science</h3>
+          <p>Programming, algorithms, AI, cloud computing, and software engineering for modern industry.</p>
+          <div class="course-meta">
+            <span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>840 students</span>
+            <a class="course-link" href="#admissions">Enroll →</a>
+          </div>
+        </div>
+      </div>
+      <div class="course-card reveal d2">
+        <div class="course-thumb">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" alt="Data Science">
+          <span class="course-tag">3 Years</span>
+        </div>
+        <div class="course-body">
+          <h3>Data Science</h3>
+          <p>Statistics, machine learning, big data, visualization, and predictive analytics.</p>
+          <div class="course-meta">
+            <span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>620 students</span>
+            <a class="course-link" href="#admissions">Enroll →</a>
+          </div>
+        </div>
+      </div>
+      <div class="course-card reveal d3">
+        <div class="course-thumb">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Business">
+          <span class="course-tag">2 Years</span>
+        </div>
+        <div class="course-body">
+          <h3>Business Management</h3>
+          <p>Leadership, financial strategy, marketing, and entrepreneurship for tomorrow's executives.</p>
+          <div class="course-meta">
+            <span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>950 students</span>
+            <a class="course-link" href="#admissions">Enroll →</a>
+          </div>
+        </div>
+      </div>
+      <div class="course-card reveal d4">
+        <div class="course-thumb">
+          <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80" alt="Design">
+          <span class="course-tag">2 Years</span>
+        </div>
+        <div class="course-body">
+          <h3>Graphic Design &amp; UX</h3>
+          <p>UI/UX design, branding, digital illustration, motion graphics, and creative tools.</p>
+          <div class="course-meta">
+            <span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>480 students</span>
+            <a class="course-link" href="#admissions">Enroll →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section>
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-label">Why EduTrack</span>
+      <h2 class="section-title">The EduTrack Advantage</h2>
+      <p class="section-sub">We don't just teach — we transform students into confident, career-ready professionals.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal d1">
+        <div class="why-icon">🎓</div>
+        <h3>Expert Faculty</h3>
+        <p>Learn from 80+ PhDs and industry leaders with real-world experience in their fields.</p>
+      </div>
+      <div class="why-card reveal d2">
+        <div class="why-icon">💼</div>
+        <h3>Placement Support</h3>
+        <p>Dedicated career office with direct placement pipelines to 120+ leading companies.</p>
+      </div>
+      <div class="why-card reveal d3">
+        <div class="why-icon">🔬</div>
+        <h3>Research Labs</h3>
+        <p>State-of-the-art labs and research centers to fuel innovation and hands-on learning.</p>
+      </div>
+      <div class="why-card reveal d1">
+        <div class="why-icon">🌍</div>
+        <h3>Global Network</h3>
+        <p>A vast alumni network spanning 60+ countries opens international doors for graduates.</p>
+      </div>
+      <div class="why-card reveal d2">
+        <div class="why-icon">📱</div>
+        <h3>Digital Learning</h3>
+        <p>Hybrid model with a robust online platform accessible 24/7 from any device.</p>
+      </div>
+      <div class="why-card reveal d3">
+        <div class="why-icon">💰</div>
+        <h3>Scholarships</h3>
+        <p>Merit and need-based scholarships covering up to 100% of tuition for deserving students.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section id="faculty" style="background:#f0f4ff">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-label">Meet the Team</span>
+      <h2 class="section-title">Expert Faculty Profiles</h2>
+      <p class="section-sub">Our educators are leaders in their fields, dedicated to mentoring the next generation of professionals.</p>
+    </div>
+    <div class="faculty-grid">
+      <div class="faculty-card reveal d1">
+        <div class="faculty-img">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Dr. Sarah Khan">
+          <div class="faculty-overlay">
+            <div class="social-btn">in</div>
+            <div class="social-btn">tw</div>
+          </div>
+        </div>
+        <div class="faculty-info">
+          <h3>Dr. Sarah Khan</h3>
+          <div class="role">Head of Computer Science</div>
+          <div class="dept">PhD MIT · 18 years experience</div>
+        </div>
+      </div>
+      <div class="faculty-card reveal d2">
+        <div class="faculty-img">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="Prof. Ahmed Raza">
+          <div class="faculty-overlay">
+            <div class="social-btn">in</div>
+            <div class="social-btn">tw</div>
+          </div>
+        </div>
+        <div class="faculty-info">
+          <h3>Prof. Ahmed Raza</h3>
+          <div class="role">Lead Data Science Instructor</div>
+          <div class="dept">PhD Stanford · 14 years experience</div>
+        </div>
+      </div>
+      <div class="faculty-card reveal d3">
+        <div class="faculty-img">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" alt="Ms. Nadia Ali">
+          <div class="faculty-overlay">
+            <div class="social-btn">in</div>
+            <div class="social-btn">tw</div>
+          </div>
+        </div>
+        <div class="faculty-info">
+          <h3>Ms. Nadia Ali</h3>
+          <div class="role">Business Studies Mentor</div>
+          <div class="dept">MBA Wharton · 12 years experience</div>
+        </div>
+      </div>
+      <div class="faculty-card reveal d4">
+        <div class="faculty-img">
+          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&q=80" alt="Dr. Omar Sheikh">
+          <div class="faculty-overlay">
+            <div class="social-btn">in</div>
+            <div class="social-btn">tw</div>
+          </div>
+        </div>
+        <div class="faculty-info">
+          <h3>Dr. Omar Sheikh</h3>
+          <div class="role">UX Design Program Lead</div>
+          <div class="dept">MFA RISD · 10 years experience</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-bg">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-label">Student Stories</span>
+      <h2 class="section-title test-section-title">What Our Alumni Say</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,.6);margin:0 auto 50px">Real experiences from students who transformed their careers with EduTrack.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal d1">
+        <div class="stars">★★★★★</div>
+        <p class="test-text">"EduTrack's CS program gave me the skills to land my dream job at a top tech firm in Dubai. The faculty's industry connections made all the difference."</p>
+        <div class="test-author">
+          <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" class="test-avatar" alt="">
+          <div>
+            <div class="test-name">Zara Mahmood</div>
+            <div class="test-course">CS Graduate, 2024</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal d2">
+        <div class="stars">★★★★★</div>
+        <p class="test-text">"The Data Science track is absolutely world-class. I went from zero coding knowledge to leading an analytics team in just two years."</p>
+        <div class="test-author">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" class="test-avatar" alt="">
+          <div>
+            <div class="test-name">Hassan Butt</div>
+            <div class="test-course">Data Science, 2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal d3">
+        <div class="stars">★★★★★</div>
+        <p class="test-text">"The scholarship I received changed my life. I graduated debt-free and now run my own design agency with 3 employees. EduTrack believed in me."</p>
+        <div class="test-author">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" class="test-avatar" alt="">
+          <div>
+            <div class="test-name">Amna Shahid</div>
+            <div class="test-course">Graphic Design, 2022</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS GALLERY -->
+<section>
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-label">Campus Life</span>
+      <h2 class="section-title">Life at EduTrack</h2>
+      <p class="section-sub">More than academics — a vibrant campus culture that shapes well-rounded professionals.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item span2">
+        <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=900&q=80" alt="Campus">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=500&q=80" alt="Library">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80" alt="Events">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=500&q=80" alt="Classroom">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&q=80" alt="Students">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSIONS -->
+<section id="admissions" style="background:linear-gradient(180deg,#eef1ff,#f5f7ff)">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-label">Get Started</span>
+      <h2 class="section-title">Admission Process</h2>
+      <p class="section-sub">Joining EduTrack is straightforward. Follow these four steps to begin your academic journey.</p>
+    </div>
+    <div class="admission-grid">
+      <div class="reveal-left">
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Choose Your Program</h4>
+              <p>Browse our catalog and select the degree or certification that aligns with your career goals.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Submit Application</h4>
+              <p>Complete the online form with your academic records and a brief statement of purpose.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Assessment &amp; Interview</h4>
+              <p>Shortlisted candidates are invited for a skill assessment and faculty interview.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>Receive Offer Letter</h4>
+              <p>Successful applicants receive an offer letter and onboarding package within 7 business days.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="admission-form reveal-right">
+        <h3>Apply Online</h3>
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="Ali"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Hassan"></div>
+        </div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="ali@example.com"></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+92 300 0000000"></div>
+        <div class="form-group"><label>Program of Interest</label>
+          <select>
+            <option>Computer Science</option>
+            <option>Data Science</option>
+            <option>Business Management</option>
+            <option>Graphic Design &amp; UX</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message (Optional)</label><textarea rows="3" placeholder="Tell us about yourself..."></textarea></div>
+        <button class="submit-btn" onclick="this.textContent='Application Sent ✓';this.style.background='#16a34a'">Submit Application</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-bg">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-label">Get In Touch</span>
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-sub">Have questions? Our admissions team is ready to help you take the next step.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <h3 class="contact-info" style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:14px">We'd Love to Hear From You</h3>
+        <p style="color:var(--gray);line-height:1.8;margin-bottom:28px">Whether you have a question about programs, fees, scholarships or anything else — our team is ready to answer all your questions.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="c-icon">📍</div>
+            <div><div class="c-label">Address</div><div class="c-value">Main Campus, Gulberg III, Lahore, Punjab</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">📞</div>
+            <div><div class="c-label">Phone</div><div class="c-value">+92 300 1234567</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">✉️</div>
+            <div><div class="c-label">Email</div><div class="c-value">admissions@edutrack.edu.pk</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">🕐</div>
+            <div><div class="c-label">Hours</div><div class="c-value">Mon–Sat, 9:00 AM – 6:00 PM</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal-right">
+        <h3>Send a Message</h3>
+        <div class="cf-row">
+          <div class="cf-group"><label>Name</label><input type="text" placeholder="Your full name"></div>
+          <div class="cf-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        </div>
+        <div class="cf-group"><label>Subject</label><input type="text" placeholder="How can we help?"></div>
+        <div class="cf-group"><label>Department</label>
+          <select>
+            <option>Admissions</option>
+            <option>Academic Affairs</option>
+            <option>Financial Aid</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="cf-group"><label>Message</label><textarea rows="5" placeholder="Write your message here..."></textarea></div>
+        <button class="cf-submit" onclick="this.textContent='Message Sent ✓';this.style.background='#16a34a'">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="newsletter-inner reveal">
+    <span class="section-label" style="color:var(--accent)">Stay Updated</span>
+    <h2>Join Our Newsletter</h2>
+    <p>Get the latest news about programs, scholarships, events, and career opportunities delivered straight to your inbox.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="Enter your email address">
+      <button class="nl-btn">Subscribe</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  © 2026 EduTrack Institute. All rights reserved.
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-text">EduTrack Institute</span>
+        <p>Empowering minds and building futures through industry-focused education since 1996. Lahore's premier institute for professional excellence.</p>
+        <div class="footer-social">
+          <div class="fsoc">f</div>
+          <div class="fsoc">in</div>
+          <div class="fsoc">tw</div>
+          <div class="fsoc">yt</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="#courses">Computer Science</a></li>
+          <li><a href="#courses">Data Science</a></li>
+          <li><a href="#courses">Business Management</a></li>
+          <li><a href="#courses">Graphic Design</a></li>
+          <li><a href="#courses">Short Courses</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Institute</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#faculty">Faculty</a></li>
+          <li><a href="#admissions">Admissions</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Alumni</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Student Portal</a></li>
+          <li><a href="#">Scholarships</a></li>
+          <li><a href="#">Career Center</a></li>
+          <li><a href="#">Library</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 EduTrack Institute. All rights reserved.</p>
+      <div style="display:flex;gap:20px">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<script>
+// ── HERO SLIDER ──
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+let timer = setInterval(() => changeSlide(1), 5500);
+
+function goToSlide(n) {
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+  clearInterval(timer);
+  timer = setInterval(() => changeSlide(1), 5500);
+}
+function changeSlide(dir) { goToSlide(current + dir); }
+
+// ── HEADER SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE MENU ──
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+// ── REVEAL ON SCROLL ──
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+// ── COUNT-UP ANIMATION ──
+function countUp(el) {
+  const target = parseInt(el.dataset.target);
+  let count = 0;
+  const step = Math.ceil(target / 60);
+  const interval = setInterval(() => {
+    count = Math.min(count + step, target);
+    el.textContent = target >= 1000 ? count.toLocaleString() + '+' : count + (target === 95 ? '%' : '+');
+    if (count >= target) clearInterval(interval);
+  }, 25);
+}
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); statObserver.unobserve(e.target); }});
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-num[data-target]').forEach(el => statObserver.observe(el));
+</script>
 </body>
 </html>
